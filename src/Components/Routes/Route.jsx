@@ -1,36 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../Main/MainLayout";
-import UserProfile from "../Dashboard/UserProfile";
-import UserDashboard from "../Dashboard/UserDashboard";
-import UserHistory from "../Dashboard/UserHistory";
+import Layout from "../MainLayout/Layout";
 import Login from "../Login/Login";
-import Register from "../Register/Register";
+
+import Table from "../UserDashboard/Table";
+import Navbar from "../Dashboard/Navbar";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <UserDashboard />,
+        element: <Navbar />,
       },
-      {
-        path: "/userProfile",
-        element: <UserProfile />,
-      },
-      {
-        path: "/userHistory",
-        element: <UserHistory />,
-      },
+
       {
         path: "/login",
         element: <Login />,
       },
-      {
-        path: "/register",
-        element: <Register />,
-      },
     ],
+  },
+  {
+    path: "/table",
+    element: <Table />,
   },
 ]);
