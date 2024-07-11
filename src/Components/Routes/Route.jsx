@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../MainLayout/Layout";
-import Login from "../Login/Login";
 
 import Table from "../UserDashboard/Table";
-import Navbar from "../Dashboard/Navbar";
+import Navbar from "../Dashboard/LayoutSystem";
+import Login from "../Authenticaiton/Login/Login";
+import Register from "../Authenticaiton/Register/Register";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },
