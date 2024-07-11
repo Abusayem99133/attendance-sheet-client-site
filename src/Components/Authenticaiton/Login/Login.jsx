@@ -1,15 +1,17 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa";
 
 const Login = () => {
   const { signIn, googleSignIn, facebookLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -18,29 +20,37 @@ const Login = () => {
     console.log(email, password);
     signIn(email, password)
       .then((result) => {
-        toast.success("Successfully Login");
+        toast.success("Successfully Logged In");
 
         if (result.user) {
           navigate(from);
         }
       })
-
       .catch((error) => {
         toast.error("Login Error");
       });
-    navigate(from);
   };
+
   const handleSocialSignIn = (socialProvider) => {
-    socialProvider().then((result) => {
-      if (result.user) {
-        navigate(from);
-        console.log(result.user);
-      }
-    });
+    socialProvider()
+      .then((result) => {
+        if (result.user) {
+          navigate(from);
+          console.log(result.user);
+        }
+      })
+      .catch((error) => {
+        toast.error("Social Login Error");
+      });
   };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <div className="bg-base-200 flex">
-      <div className="hero  min-h-screen">
+      <div className="hero min-h-screen">
         <div className="hero-content flex-col md:flex-row-reverse">
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleLogin} className="card-body">
@@ -60,13 +70,22 @@ const Login = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  name="password"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="password"
+                    className="input input-bordered w-full"
+                    name="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {passwordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?
@@ -77,19 +96,19 @@ const Login = () => {
                 <button className="btn btn-primary">Login</button>
               </div>
             </form>
-            <p className="p-3 ">
+            <p className="p-3">
               Do not have an account?{" "}
-              <Link to="/register" className="btn-link ">
+              <Link to="/register" className="btn-link">
                 Register
               </Link>
             </p>
             <div className="p-2">
               <div>
-                <h2 className="divider text-center ">Or sign in with</h2>
-                <div className="text-center space-x-6  p-3 rounded-md">
+                <h2 className="divider text-center">Or sign in with</h2>
+                <div className="text-center space-x-6 p-3 rounded-md">
                   <button
                     onClick={() => handleSocialSignIn(googleSignIn)}
-                    className="text-4xl "
+                    className="text-4xl"
                   >
                     <FcGoogle />
                   </button>

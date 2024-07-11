@@ -1,14 +1,17 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -20,6 +23,7 @@ const Register = () => {
     const age = form.get("age");
     const gender = form.get("gender");
     console.log(name, email, password, confirmPassword, age, gender);
+
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
       return;
@@ -37,16 +41,23 @@ const Register = () => {
       return;
     }
 
-    toast.success("Successfully Registered");
-
     createUser(email, password, confirmPassword)
       .then(() => {
+        toast.success("Successfully Registered");
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error.message);
         toast.error("Error Signing Up.");
       });
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
   return (
@@ -94,25 +105,43 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="input input-bordered"
-                  name="password"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Password"
+                    className="input input-bordered w-full"
+                    name="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {passwordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Confirm Password</span>
                 </label>
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  className="input input-bordered"
-                  name="confirmPassword"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={confirmPasswordVisible ? "text" : "password"}
+                    placeholder="Confirm Password"
+                    className="input input-bordered w-full"
+                    name="confirmPassword"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={toggleConfirmPasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {confirmPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
               </div>
               <div className="form-control">
                 <label className="label">

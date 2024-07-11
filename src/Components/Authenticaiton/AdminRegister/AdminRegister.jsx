@@ -1,29 +1,44 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const AdminRegister = () => {
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const name = form.get("name");
+    const companyName = form.get("companyName");
+    const mobileNumber = form.get("mobileNumber");
     const email = form.get("email");
     const password = form.get("password");
-    const confirmPassword = form.get("confirmPassword");
-    const age = form.get("age");
-    const gender = form.get("gender");
-    console.log(name, email, password, confirmPassword, age, gender);
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match.");
-      return;
-    }
+    const fullAddress = form.get("fullAddress");
+    const business = form.get("business");
+    const place = form.get("place");
+    const people = form.get("people");
+    const amount = form.get("amount");
+    const facebook = form.get("facebook");
+    const contactNumber = form.get("contactNumber");
+    console.log(
+      companyName,
+      mobileNumber,
+      email,
+      fullAddress,
+      business,
+      place,
+      people,
+      amount,
+      facebook,
+      contactNumber,
+      password
+    );
 
     if (password.length < 6) {
       toast.error("Password should be at least 6 characters.");
@@ -37,16 +52,19 @@ const AdminRegister = () => {
       return;
     }
 
-    toast.success("Successfully Registered");
-
-    createUser(email, password, confirmPassword)
+    createUser(email, password)
       .then(() => {
+        toast.success("Successfully Registered");
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error.message);
-        toast.error("Error Signing Up.");
+        toast.error("Error Registering.");
       });
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -56,14 +74,6 @@ const AdminRegister = () => {
       </Helmet>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">User Register</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-          </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleRegister} className="card-body">
               <div className="form-control">
@@ -72,7 +82,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="company name"
+                  placeholder="Company Name"
                   className="input input-bordered"
                   name="companyName"
                   required
@@ -84,7 +94,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="number"
-                  placeholder="mobile number"
+                  placeholder="Mobile Number"
                   className="input input-bordered"
                   name="mobileNumber"
                   required
@@ -96,7 +106,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="email"
-                  placeholder="email"
+                  placeholder="Email"
                   className="input input-bordered"
                   name="email"
                   required
@@ -104,11 +114,32 @@ const AdminRegister = () => {
               </div>
               <div className="form-control">
                 <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Password"
+                    className="input input-bordered w-full"
+                    name="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {passwordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
+              </div>
+              <div className="form-control">
+                <label className="label">
                   <span className="label-text">Full Address</span>
                 </label>
                 <input
                   type="text"
-                  placeholder=" full address"
+                  placeholder="Full Address"
                   className="input input-bordered"
                   name="fullAddress"
                   required
@@ -132,7 +163,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Place size"
+                  placeholder="Place Size"
                   className="input input-bordered"
                   name="place"
                   required
@@ -144,7 +175,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="capacity people"
+                  placeholder="Capacity People"
                   className="input input-bordered"
                   name="people"
                   required
@@ -156,7 +187,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="amount rate"
+                  placeholder="Amount Rate"
                   className="input input-bordered"
                   name="amount"
                   required
@@ -168,7 +199,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="your facebook link"
+                  placeholder="Your Facebook Link"
                   className="input input-bordered"
                   name="facebook"
                   required
@@ -180,7 +211,7 @@ const AdminRegister = () => {
                 </label>
                 <input
                   type="number"
-                  placeholder="contact number"
+                  placeholder="Contact Number"
                   className="input input-bordered"
                   name="contactNumber"
                   required
@@ -197,7 +228,16 @@ const AdminRegister = () => {
               </Link>
             </p>
           </div>
+          <div className="text-center lg:text-left">
+            <h1 className="text-5xl font-bold">Admin Register</h1>
+            <p className="py-6">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
+            </p>
+          </div>
         </div>
+        <Toaster />
       </div>
     </div>
   );
