@@ -1,15 +1,15 @@
 import { useContext } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
-import toast, { Toaster } from "react-hot-toast";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
 
-const Login = () => {
+const AdminLogin = () => {
   const { signIn, googleSignIn, facebookLogin } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location?.state || "/";
+  //   const navigate = useNavigate();
+  //   const location = useLocation();
+  //   const from = location?.state || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -21,23 +21,23 @@ const Login = () => {
         toast.success("Successfully Login");
 
         if (result.user) {
-          navigate(from);
+          //   navigate(from);
         }
       })
 
       .catch((error) => {
         toast.error("Login Error");
       });
-    navigate(from);
+    // navigate(from);
   };
-  const handleSocialSignIn = (socialProvider) => {
-    socialProvider().then((result) => {
-      if (result.user) {
-        navigate(from);
-        console.log(result.user);
-      }
-    });
-  };
+  //   const handleSocialSignIn = (socialProvider) => {
+  //     socialProvider().then((result) => {
+  //       if (result.user) {
+  //         navigate(from);
+  //         console.log(result.user);
+  //       }
+  //     });
+  //   };
   return (
     <div className="bg-base-200 flex">
       <div className="hero  min-h-screen">
@@ -79,14 +79,14 @@ const Login = () => {
             </form>
             <p className="p-3 ">
               Do not have an account?{" "}
-              <Link to="/register" className="btn-link ">
+              <Link to="/adminRegisters" className="btn-link ">
                 Register
               </Link>
             </p>
             <div className="p-2">
               <div>
                 <h2 className="divider text-center ">Or sign in with</h2>
-                <div className="text-center space-x-6  p-3 rounded-md">
+                {/* <div className="text-center space-x-6  p-3 rounded-md">
                   <button
                     onClick={() => handleSocialSignIn(googleSignIn)}
                     className="text-4xl "
@@ -100,7 +100,7 @@ const Login = () => {
                   >
                     <FaFacebook />
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -114,14 +114,10 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div>
-        <button className="text-white btn btn-primary">
-          <Link to="/adminLogins"> Admin</Link>
-        </button>
-      </div>
+
       <Toaster />
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;
