@@ -9,6 +9,7 @@ import AdminRegister from "../Authenticaiton/AdminRegister/AdminRegister";
 import LayoutSystem from "../Dashboard/LayoutSystem";
 import PrivateRoute from "../Authenticaiton/Private/PrivateRoute";
 import ScannerCode from "../ScannerSystem/ScannerCode";
+import AdminDashboard from "../Dashboard/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ export const router = createBrowserRouter([
       {
         path: "/qrScan",
         element: <ScannerCode />,
+      },
+      {
+        path: "/adminDashboards",
+        element: (
+          <PrivateRoute>
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },
