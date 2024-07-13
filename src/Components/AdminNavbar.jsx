@@ -10,6 +10,7 @@ const AdminNavbar = () => {
         <li>
           <Link>Admin History</Link>
         </li>
+
         <li>
           <Link>QR Code</Link>
         </li>

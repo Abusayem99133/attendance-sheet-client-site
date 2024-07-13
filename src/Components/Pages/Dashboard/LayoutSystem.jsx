@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Table from "../UserDashboard/Table";
-import UserNavbar from "../UserNavbars/UserNavbar";
+import UserNavbar from "../../UserNavbars/UserNavbar";
 import { useContext } from "react";
-import { AuthContext } from "../Providers/AuthProvider";
-import scanners from "../../assets/pngtree-mobile-phone-scan-code-sweeping-pattern-design-png-image_4429148.jpg";
+import { AuthContext } from "../../Providers/AuthProvider";
+import scanners from "../../../assets/pngtree-mobile-phone-scan-code-sweeping-pattern-design-png-image_4429148.jpg";
+import Table from "./UserDashboard/Table";
 
 const LayoutSystem = () => {
   const { user } = useContext(AuthContext);

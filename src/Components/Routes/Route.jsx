@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../MainLayout/Layout";
 
-import Table from "../UserDashboard/Table";
-import Login from "../Authenticaiton/Login/Login";
-import Register from "../Authenticaiton/Register/Register";
-import AdminLogin from "../Authenticaiton/AdminLoginSystem/AdminLogin";
-import AdminRegister from "../Authenticaiton/AdminRegister/AdminRegister";
-import LayoutSystem from "../Dashboard/LayoutSystem";
-import PrivateRoute from "../Authenticaiton/Private/PrivateRoute";
-import ScannerCode from "../ScannerSystem/ScannerCode";
-import AdminDashboard from "../Dashboard/AdminDashboard";
+import Table from "../Pages/Dashboard/UserDashboard/Table";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
+import AdminLogin from "../Pages/AdminLoginSystem/AdminLogin";
+import AdminRegister from "../Pages/AdminRegister/AdminRegister";
+import LayoutSystem from "../Pages/Dashboard/LayoutSystem";
+import PrivateRoute from "../Pages/Private/PrivateRoute";
+import ScannerCode from "../Pages/ScannerSystem/ScannerCode";
+import AdminDashboard from "../Pages/Dashboard/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
