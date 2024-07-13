@@ -7,7 +7,7 @@ const Table = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Place Name</th>
+              <th>Company Name</th>
               <th>Check In</th>
               <th>Check Out</th>
               <th>Total Time</th>

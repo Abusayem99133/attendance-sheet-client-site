@@ -19,7 +19,9 @@ const LayoutSystem = () => {
         </div>
 
         <div className="flex-1 p-8 mt-12">
-          <img className="w-[20%] mx-auto" src={scanners} alt="Scanner" />
+          <Link to="/qrScan">
+            <img className="w-[20%] mx-auto" src={scanners} alt="Scanner" />
+          </Link>
 
           <div className="btn  hover:bg-orange-600 bg-orange-300  flex">
             <Link to="/qrScan">Tap to Scan QR code</Link>
