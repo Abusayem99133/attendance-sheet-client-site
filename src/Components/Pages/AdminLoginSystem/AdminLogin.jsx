@@ -6,12 +6,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const AdminLogin = () => {
-  const { signIn, googleSignIn, facebookLogin } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state || "/";
+  const from = location?.state || "/adminDashboards";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ const AdminLogin = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn bg-orange-300">Login</button>
               </div>
             </form>
             <p className="p-3">
@@ -102,7 +102,7 @@ const AdminLogin = () => {
             </p>
             <div className="p-2">
               <div>
-                <h2 className="divider text-center">Or sign in with</h2>
+                {/* <h2 className="divider text-center">Or sign in with</h2> */}
                 {/* <div className="text-center space-x-6 p-3 rounded-md">
                   <button
                     onClick={() => handleSocialSignIn(googleSignIn)}

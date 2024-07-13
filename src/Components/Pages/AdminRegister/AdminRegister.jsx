@@ -9,7 +9,7 @@ const AdminRegister = () => {
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
+  const from = location?.state?.from?.pathname || "/adminDashboards";
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleRegister = (e) => {
@@ -100,39 +100,7 @@ const AdminRegister = () => {
                   required
                 />
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email Address</span>
-                </label>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="input input-bordered"
-                  name="email"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <div className="relative">
-                  <input
-                    type={passwordVisible ? "text" : "password"}
-                    placeholder="Password"
-                    className="input input-bordered w-full"
-                    name="password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  >
-                    {passwordVisible ? <FaEye /> : <FaEyeSlash />}
-                  </button>
-                </div>
-              </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Full Address</span>
@@ -217,13 +185,46 @@ const AdminRegister = () => {
                   required
                 />
               </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="input input-bordered"
+                  name="email"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Password"
+                    className="input input-bordered w-full"
+                    name="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {passwordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </button>
+                </div>
+              </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Register</button>
+                <button className="btn bg-orange-300">Register</button>
               </div>
             </form>
             <p className="p-4">
               Have an Account?{" "}
-              <Link to="/login" className="font-bold">
+              <Link to="/adminLogins" className="btn-link">
                 Login
               </Link>
             </p>

@@ -5,6 +5,7 @@ import { useContext } from "react";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
+
   if (loading) {
     return (
       <h1 className="text-5xl text-center">
@@ -12,9 +13,17 @@ const PrivateRoute = ({ children }) => {
       </h1>
     );
   }
+
   if (!user) {
-    return <Navigate to="/login" state={location?.pathname || "/"}></Navigate>;
+    // If no user, navigate to login
+    return <Navigate to="/login" state={{ from: location }} />;
   }
+
+  if (user && user.isAdmin) {
+    // If user is admin, navigate to admin login
+    return <Navigate to="/adminLogin" state={{ from: location }} />;
+  }
+
   return <div>{children}</div>;
 };
 

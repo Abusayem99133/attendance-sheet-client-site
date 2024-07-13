@@ -93,7 +93,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn bg-orange-300">Login</button>
               </div>
             </form>
             <p className="p-3">
@@ -134,7 +134,7 @@ const Login = () => {
         </div>
       </div>
       <div>
-        <button className="text-white btn btn-primary">
+        <button className="text-white btn bg-orange-300">
           <Link to="/adminLogins"> Admin</Link>
         </button>
       </div>
